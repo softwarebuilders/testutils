@@ -3,12 +3,8 @@ package cz.softwarebuilders.testutils.junit.runner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import cz.softwarebuilders.testutils.junit.runner.Order;
-import cz.softwarebuilders.testutils.junit.runner.OrderAwareRunner;
-import cz.softwarebuilders.testutils.junit.runner.OrderValidation;
-
 @RunWith(OrderAwareRunner.class)
-@OrderValidation()
+@OrderValidation
 public class OrderValidationNotSetOrder {
 
 	@Test
