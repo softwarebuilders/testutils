@@ -15,11 +15,11 @@ import org.junit.runners.model.InitializationError;
 import cz.softwarebuilders.testutils.junit.runner.exceptions.OrderValidationException;
 
 /**
- *
+ * 
  * A simple JUnit runner to execute test methods by their specific {@link Order order}.
- *
+ * 
  * @author Jan Klimes
- *
+ * 
  */
 public class OrderAwareRunner extends BlockJUnit4ClassRunner {
 
@@ -46,7 +46,7 @@ public class OrderAwareRunner extends BlockJUnit4ClassRunner {
 	}
 
 	private void validateMethodsIfNecessary(List<FrameworkMethod> methods) {
-		OrderValidation validation = getTestClass().getAnnotation(OrderValidation.class);
+		OrderValidation validation = getValidation();
 		if (validation != null && validation.on()) {
 			if (validation.eachMethodMustHaveOrder()) {
 				validateEachMethodHasSetOrder(methods);
@@ -78,6 +78,10 @@ public class OrderAwareRunner extends BlockJUnit4ClassRunner {
 				orders.add(order.order());
 			}
 		}
+	}
+
+	private OrderValidation getValidation() {
+		return getTestClass().getJavaClass().getAnnotation(OrderValidation.class);
 	}
 
 	private Order findOrder(FrameworkMethod fwMethod) {
