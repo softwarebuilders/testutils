@@ -7,17 +7,7 @@ import org.junit.Test
 import org.junit.runners.model.FrameworkMethod
 import org.junit.runners.model.InitializationError
 
-import cz.softwarebuilders.testutils.junit.runner.ClassWithoutTestMethod;
-import cz.softwarebuilders.testutils.junit.runner.OrderAwareRunner;
-import cz.softwarebuilders.testutils.junit.runner.OrderAwareTestClass;
-import cz.softwarebuilders.testutils.junit.runner.OrderAwareTestClassWithOrderValidation;
-import cz.softwarebuilders.testutils.junit.runner.OrderUnawareTestClass;
-import cz.softwarebuilders.testutils.junit.runner.OrderValidationNonUniqueOrders;
-import cz.softwarebuilders.testutils.junit.runner.OrderValidationNonUniqueOrdersAllowed;
-import cz.softwarebuilders.testutils.junit.runner.OrderValidationNotSetOrder;
-import cz.softwarebuilders.testutils.junit.runner.OrderValidationNotSetOrderAllowed;
-import cz.softwarebuilders.testutils.junit.runner.OrderValidationNotSetOrderNonUniqueOrders;
-import cz.softwarebuilders.testutils.junit.runner.exceptions.OrderValidationException;
+import cz.softwarebuilders.testutils.junit.runner.exceptions.OrderValidationException
 
 @CompileStatic
 class OrderAwareRunnerTest extends Assert {
@@ -53,6 +43,12 @@ class OrderAwareRunnerTest extends Assert {
 	@Test
 	void computeTestMethodsForOrderAwareClass() {
 		OrderAwareRunner runner = new OrderAwareRunner(OrderAwareTestClass.class);
+		assertOrderedComputedMethods(runner.computeTestMethods());
+	}
+
+	@Test
+	void computeTestMethodsForOrderAwareClassWithStepByTen() {
+		OrderAwareRunner runner = new OrderAwareRunner(OrderAwareTestClassWithOrderStepBy10.class);
 		assertOrderedComputedMethods(runner.computeTestMethods());
 	}
 
@@ -104,6 +100,7 @@ class OrderAwareRunnerTest extends Assert {
 		OrderAwareRunner runner = new OrderAwareRunner(OrderValidationNotSetOrderNonUniqueOrders.class);
 		assertUnorderedComputedMethods(runner.computeTestMethods());
 	}
+
 
 	private assertOrderedComputedMethods(List<FrameworkMethod> methods) {
 		assertEquals("number of method names and computed methods is not same", methodNames.size(), methods.size());
