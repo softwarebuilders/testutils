@@ -3,12 +3,8 @@ package cz.softwarebuilders.testutils.junit.runner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import cz.softwarebuilders.testutils.junit.runner.Order;
-import cz.softwarebuilders.testutils.junit.runner.OrderAwareRunner;
-
 @RunWith(OrderAwareRunner.class)
-public class OrderAwareTestClass {
-
+public class OrderedAwareTestParentClass {
     @Test
     @Order(0)
     public void a() {
@@ -134,4 +130,5 @@ public class OrderAwareTestClass {
     public void gA() {
 
     }
+
 }

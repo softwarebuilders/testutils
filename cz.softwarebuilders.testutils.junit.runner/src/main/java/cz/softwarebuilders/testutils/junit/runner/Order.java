@@ -8,17 +8,16 @@ import java.lang.annotation.Target;
 /**
  * An annotation to set an order of a invocation of testing method. The order is used by {@link OrderAwareRunner junit
  * runner}.
- * 
- * @author Jan Klimes
  *
+ * @author Jan Klimes
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Order {
-	/**
-	 * Order number of method.
-	 * 
-	 * @return order or 0 (zero) by default
-	 */
-	int value();
+    /**
+     * Order number of method.
+     *
+     * @return order or 0 (zero) by default
+     */
+    int value();
 }
