@@ -1,10 +1,21 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://localhost/tmp/myRepo/")
+        }
+    }
+}
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+group = 'cz.softwarebuilders.testutils'
 version = '0.7'
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'cz.softwarebuilders.testutils.runner', 'Implementation-Version': version
@@ -19,6 +30,7 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
     compile group: 'junit', name: 'junit', version: '4.5'
 }
+
 
 
 
