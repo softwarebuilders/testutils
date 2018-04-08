@@ -1,11 +1,13 @@
 package cz.softwarebuilders.testutils.junit.runner;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import cz.softwarebuilders.testutils.junit.runner.OrderAwareRunner;
 
 @RunWith(OrderAwareRunner.class)
+@Ignore
 public class OrderUnawareTestClass {
 
     @Test

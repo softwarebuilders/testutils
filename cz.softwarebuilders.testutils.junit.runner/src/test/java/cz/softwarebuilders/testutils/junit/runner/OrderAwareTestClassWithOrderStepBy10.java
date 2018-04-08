@@ -1,9 +1,11 @@
 package cz.softwarebuilders.testutils.junit.runner;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(OrderAwareRunner.class)
+@Ignore
 public class OrderAwareTestClassWithOrderStepBy10 {
 
     @Test

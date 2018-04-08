@@ -1,5 +1,8 @@
 package cz.softwarebuilders.testutils.junit.runner;
 
+import org.junit.Ignore;
+
+@Ignore
 public class OrderAwareTestParentClassChild extends OrderedAwareTestParentClass {
     @Override
     public void a() {
