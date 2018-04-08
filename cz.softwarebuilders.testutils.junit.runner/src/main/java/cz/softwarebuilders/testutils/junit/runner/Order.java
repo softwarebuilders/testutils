@@ -20,5 +20,5 @@ public @interface Order {
 	 * 
 	 * @return order or 0 (zero) by default
 	 */
-	int order() default 0;
+	int value();
 }

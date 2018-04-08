@@ -31,14 +31,14 @@ public class OrderAwareRunner extends BlockJUnit4ClassRunner {
 	protected List<FrameworkMethod> computeTestMethods() {
 		List<FrameworkMethod> methods = super.computeTestMethods();
 		validateMethodsIfNecessary(methods);
-		List<FrameworkMethod> result = new ArrayList<FrameworkMethod>(methods);
+		List<FrameworkMethod> result = new ArrayList<>(methods);
 		Collections.sort(result, new Comparator<FrameworkMethod>() {
 
 			public int compare(FrameworkMethod o1, FrameworkMethod o2) {
 				Order ord1 = findOrder(o1);
 				Order ord2 = findOrder(o2);
 
-				return ord1.order() - ord2.order();
+				return ord1.value() - ord2.value();
 			}
 		});
 
@@ -67,15 +67,15 @@ public class OrderAwareRunner extends BlockJUnit4ClassRunner {
 	}
 
 	private void validateUniquenessOfOrder(List<FrameworkMethod> methods) {
-		Set<Integer> orders = new HashSet<Integer>();
+		Set<Integer> orders = new HashSet<>();
 		for (FrameworkMethod m : methods) {
 			Order order = m.getAnnotation(Order.class);
 			if (order != null) {
-				if (orders.contains(order.order())) {
-					throw new OrderValidationException("Order values must be unique but value " + order.order()
+				if (orders.contains(order.value())) {
+					throw new OrderValidationException("Order values must be unique but value " + order.value()
 							+ " is used more than once.");
 				}
-				orders.add(order.order());
+				orders.add(order.value());
 			}
 		}
 	}
@@ -95,7 +95,7 @@ public class OrderAwareRunner extends BlockJUnit4ClassRunner {
 					return Order.class;
 				}
 
-				public int order() {
+				public int value() {
 					return 0;
 				}
 			};
