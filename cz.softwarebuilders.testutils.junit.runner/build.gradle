@@ -4,7 +4,7 @@ apply plugin: 'groovy'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-version = '0.6'
+version = '0.7'
 jar {
     manifest {
         attributes 'Implementation-Title': 'cz.softwarebuilders.testutils.runner', 'Implementation-Version': version
