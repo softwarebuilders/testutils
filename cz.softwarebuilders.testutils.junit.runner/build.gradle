@@ -1,20 +1,33 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'maven'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://localhost/tmp/myRepo/")
-        }
-    }
-}
+apply plugin: 'signing'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-group = 'cz.softwarebuilders.testutils'
+group = 'cz.softwarebuilders'
+archivesBaseName = "cz.softwarebuilders.testutils"
 version = '0.7'
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
 
 jar {
     manifest {
@@ -22,12 +35,58 @@ jar {
     }
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'testutils-junit-runner'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description "junit library with runner which keeps order of execution of testing methods"
+                url 'https://github.com/softwarebuilders/testutils'
+
+                scm {
+                    connection 'https://github.com/softwarebuilders/testutils.git'
+                    developerConnection 'https://github.com/softwarebuilders/testutils.git'
+                    url 'https://github.com/softwarebuilders/testutils'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'hattorihanso'
+                        name 'Jan Klimes'
+                        email 'hans.klimes@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
     compile group: 'junit', name: 'junit', version: '4.5'
 }
 
